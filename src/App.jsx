@@ -1,12 +1,25 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Clock from "./Clock"; // 假设 Clock 组件位于同一目录下的 Clock.js 文件
-import { Analytics } from '@vercel/analytics/react';
-
+import { Analytics } from "@vercel/analytics/react";
 import NoSleep from "nosleep.js";
 
 const App = () => {
     const noSleep = new NoSleep();
     let wakeLockEnabled = false;
+
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem("theme") === "dark"
+    );
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    }, [darkMode]);
 
     useEffect(() => {
         const toggleEl = document.querySelector("#toggle");
@@ -35,14 +48,20 @@ const App = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-100"} flex items-center justify-center`}>
             <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r w-full">
-                <Clock/>
+                <Clock />
                 <button
                     id="toggle"
                     className="mt-8 px-6 py-3 text-lg font-bold text-white bg-red-500 rounded-lg shadow-lg hover:bg-red-600 transition duration-300"
                 >
                     屏幕常亮已关闭
+                </button>
+                <button
+                    onClick={() => setDarkMode(!darkMode)}
+                    className="mt-4 px-6 py-3 text-lg font-bold text-white bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300"
+                >
+                    切换到{darkMode ? "明亮模式" : "暗色模式"}
                 </button>
             </div>
             <Analytics />

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Clock from "./Clock"; // 假设 Clock 组件位于同一目录下的 Clock.js 文件
+import { Analytics } from '@vercel/analytics/next';
 
 import NoSleep from "nosleep.js";
 
@@ -44,6 +45,7 @@ const App = () => {
                     屏幕常亮已关闭
                 </button>
             </div>
+            <Analytics />
         </div>
     );
 };

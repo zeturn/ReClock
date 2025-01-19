@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Clock from "./Clock"; // 假设 Clock 组件位于同一目录下的 Clock.js 文件
+import Weather  from "./Weather";
 import { Analytics } from "@vercel/analytics/react";
 import NoSleep from "nosleep.js";
 
@@ -74,6 +75,7 @@ const App = () => {
             {/* Clock 组件 */}
             <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r w-full">
                 <Clock />
+                <Weather />
             </div>
 
             <Analytics />

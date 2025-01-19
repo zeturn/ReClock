@@ -5,6 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
+
   { ignores: ['dist'] },
   {
     files: ['**/*.{js,jsx}'],
@@ -16,6 +17,11 @@ export default [
         ecmaFeatures: { jsx: true },
         sourceType: 'module',
       },
+    },
+    env: {
+      browser: true,  // 如果代码运行在浏览器中
+      node: true,     // 添加这一行
+      es6: true,
     },
     settings: { react: { version: '18.3' } },
     plugins: {

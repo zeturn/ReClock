@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import "@weather-icons/css/weather-icons.css"; // 引入 Weather Icons 样式表，使用@weather-icons/css包
-
-
-
+import "../weather-icons/css/weather-icons.css"; // 引入 Weather Icons 样式表，使用@weather-icons/css包
 
 const Weather = () => {
     const [weatherData, setWeatherData] = useState(null);

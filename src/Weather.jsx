@@ -1,29 +1,37 @@
 import { useState, useEffect } from "react";
 //import "/weather-icons/css/weather-icons.css"; // 引入 Weather Icons 样式表，使用@weather-icons/css包
+//这里取消直接使用下载的weather-icons包，改为使用CDN引入；应在后续的步骤中删除此行
 
 const Weather = () => {
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const API_KEY = import.meta.env.VITE_WEATHER_API_KEY_1;
     const CITY = "Davis, CA, US"; // 替换为你的城市名称
 
-    useEffect(() => {
-        const fetchWeatherData = async () => {
-            try {
-                const response = await fetch(`/api/weather?CITY=${CITY}`);
-                if (!response.ok) throw new Error("无法获取天气数据");
-                const data = await response.json();
-                setWeatherData(data);
-                setLoading(false);
-            } catch (err) {
-                setError(err.message);
-                setLoading(false);
-            }
-        };
+    const fetchWeatherData = async () => {
+        try {
+            setLoading(true); // 开始加载时设置加载状态
+            const response = await fetch(`/api/weather?CITY=${CITY}`);
+            if (!response.ok) throw new Error("无法获取天气数据");
+            const data = await response.json();
+            setWeatherData(data);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message);
+            setLoading(false);
+        }
+    };
 
-        fetchWeatherData();
+    useEffect(() => {
+        fetchWeatherData(); // 初始加载数据
+
+        const intervalId = setInterval(() => {
+            fetchWeatherData(); // 每分钟调用一次
+        }, 60000); // 60000 毫秒 = 1 分钟
+
+        // 清理定时器，防止内存泄漏
+        return () => clearInterval(intervalId);
     }, [CITY]);
 
     if (loading) return <div className="text-center text-lg">加载中...</div>;
@@ -32,7 +40,6 @@ const Weather = () => {
     const { main, weather, sys, wind } = weatherData;
     const temperature = main.temp;
     const humidity = main.humidity;
-    const description = weather[0].description;
     const sunrise = new Date(sys.sunrise * 1000).toLocaleTimeString();
     const sunset = new Date(sys.sunset * 1000).toLocaleTimeString();
     const windSpeed = wind.speed;
@@ -40,9 +47,8 @@ const Weather = () => {
     const getWeatherIcon = (iconCode) => `wi wi-owm-${iconCode}`;
 
     return (
-
-    <div className="max-w-4xl mx-auto m-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg flex items-center">
-    <div className="flex-shrink-0 mr-6">
+        <div className="max-w-4xl mx-auto m-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg flex items-center">
+            <div className="flex-shrink-0 mr-6">
                 <i className={`${getWeatherIcon(weather[0].id)} text-8xl text-blue-500`}></i>
             </div>
             <div className="flex-grow">

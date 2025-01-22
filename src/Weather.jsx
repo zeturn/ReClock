@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../weather-icons/css/weather-icons.css"; // 引入 Weather Icons 样式表，使用@weather-icons/css包
+//import "/weather-icons/css/weather-icons.css"; // 引入 Weather Icons 样式表，使用@weather-icons/css包
 
 const Weather = () => {
     const [weatherData, setWeatherData] = useState(null);
@@ -40,8 +40,9 @@ const Weather = () => {
     const getWeatherIcon = (iconCode) => `wi wi-owm-${iconCode}`;
 
     return (
-        <div className="max-w-4xl mx-auto m-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg flex items-center">
-            <div className="flex-shrink-0 mr-6">
+
+    <div className="max-w-4xl mx-auto m-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg flex items-center">
+    <div className="flex-shrink-0 mr-6">
                 <i className={`${getWeatherIcon(weather[0].id)} text-8xl text-blue-500`}></i>
             </div>
             <div className="flex-grow">

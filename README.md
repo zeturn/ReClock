@@ -1,8 +1,3 @@
-# React + Vite
+### ReClock
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+一个能显示davis天气的小时钟，有暗色模式和防止屏幕关闭的功能。5分钟写完的，几乎没有技术含量。我一般把它放到chrome book上面看时间用，如果你也有个没啥用的屏幕也可以这么做。
